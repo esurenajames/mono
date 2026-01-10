@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { products } from "@/data/products";
 import ProductDetailContent from "../components/ProductDetailContent";
 import Link from "next/link";
@@ -31,5 +32,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
         );
     }
 
-    return <ProductDetailContent product={product} allProducts={products} />;
+    return (
+        <Suspense fallback={<div className="min-h-screen pt-32 px-6 flex justify-center"><div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin"></div></div>}>
+            <ProductDetailContent product={product} allProducts={products} />
+        </Suspense>
+    );
 }
