@@ -30,13 +30,14 @@ export default function CheckoutContent() {
     const [paymentTab, setPaymentTab] = useState<"pay_now" | "cod">("pay_now");
     const [paymentMethod, setPaymentMethod] = useState("card"); // internal to pay_now
     const [cardNumber, setCardNumber] = useState("");
-    const [cardType, setCardType] = useState<"visa" | "mastercard" | null>(null);
+    const [cardType, setCardType] = useState<"visa" | "mastercard" | "amex" | null>(null);
 
     const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
         setCardNumber(val);
         if (val.startsWith("4")) setCardType("visa");
         else if (/^5[1-5]/.test(val)) setCardType("mastercard");
+        else if (/^3[47]/.test(val)) setCardType("amex");
         else setCardType(null);
     };
 
@@ -159,16 +160,16 @@ export default function CheckoutContent() {
                     <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-xl shadow-zinc-200/50 border border-zinc-100">
                         {/* Payment Method Tabs */}
                         {/* Payment Method Tabs */}
-                        <div className="bg-zinc-50 p-1 rounded-2xl flex mb-8">
+                        <div className="bg-white p-1.5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-zinc-100 flex mb-8">
                             <button
                                 onClick={() => setPaymentTab("pay_now")}
-                                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${paymentTab === "pay_now" ? "bg-white shadow-sm text-zinc-900" : "text-zinc-500 hover:text-zinc-900"}`}
+                                className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${paymentTab === "pay_now" ? "bg-black text-white shadow-lg shadow-black/20" : "text-zinc-500 hover:text-zinc-900"}`}
                             >
                                 Pay Now
                             </button>
                             <button
                                 onClick={() => setPaymentTab("cod")}
-                                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${paymentTab === "cod" ? "bg-white shadow-sm text-zinc-900" : "text-zinc-500 hover:text-zinc-900"}`}
+                                className={`flex-1 py-3 rounded-full text-sm font-bold transition-all ${paymentTab === "cod" ? "bg-black text-white shadow-lg shadow-black/20" : "text-zinc-500 hover:text-zinc-900"}`}
                             >
                                 Cash on Delivery
                             </button>
@@ -182,17 +183,20 @@ export default function CheckoutContent() {
                                     onClick={() => setPaymentMethod("card")}
                                     className={`flex flex-col items-center justify-center gap-2 py-4 rounded-xl border transition-all ${paymentMethod === "card" ? "border-black bg-zinc-50 ring-1 ring-black" : "border-zinc-200 hover:border-zinc-300"}`}
                                 >
-                                    <CreditCard size={24} className={paymentMethod === "card" ? "text-black" : "text-zinc-400"} />
+                                    <div className="relative w-8 h-8">
+                                        <Image
+                                            src="/assets/images/Icon/credit-card.svg"
+                                            alt="Card"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <span className="text-xs font-medium text-zinc-900">Card</span>
                                 </button>
-                                <button
-                                    onClick={() => setPaymentMethod("paypal")}
-                                    className={`flex flex-col items-center justify-center gap-2 py-4 rounded-xl border transition-all ${paymentMethod === "paypal" ? "border-black bg-zinc-50 ring-1 ring-black" : "border-zinc-200 hover:border-zinc-300"}`}
-                                >
-                                    {/* PayPal Logo Image */}
-                                    <div className="relative w-12 h-8">
+                                <button className="flex flex-col items-center justify-center gap-2 py-4 rounded-xl border border-zinc-200 hover:border-zinc-300 transition-all opacity-50 cursor-not-allowed">
+                                    <div className="relative w-8 h-8 opacity-60 grayscale">
                                         <Image
-                                            src="/assets/images/Payment/paypal.png"
+                                            src="/assets/images/Icon/paypal.svg"
                                             alt="PayPal"
                                             fill
                                             className="object-contain"
@@ -201,11 +205,25 @@ export default function CheckoutContent() {
                                     <span className="text-xs font-medium text-zinc-900">PayPal</span>
                                 </button>
                                 <button className="flex flex-col items-center justify-center gap-2 py-4 rounded-xl border border-zinc-200 hover:border-zinc-300 transition-all opacity-50 cursor-not-allowed">
-                                    <span className="font-bold text-zinc-400 text-sm">GPay</span>
+                                    <div className="relative w-8 h-8 opacity-60 grayscale">
+                                        <Image
+                                            src="/assets/images/Icon/google-pay.svg"
+                                            alt="Google Pay"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <span className="text-xs font-medium text-zinc-400">Google Pay</span>
                                 </button>
                                 <button className="flex flex-col items-center justify-center gap-2 py-4 rounded-xl border border-zinc-200 hover:border-zinc-300 transition-all opacity-50 cursor-not-allowed">
-                                    <span className="font-bold text-zinc-400 text-sm">Pay</span>
+                                    <div className="relative w-8 h-8 opacity-60 grayscale">
+                                        <Image
+                                            src="/assets/images/Icon/apple-pay.svg"
+                                            alt="Apple Pay"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <span className="text-xs font-medium text-zinc-400">Apple Pay</span>
                                 </button>
                             </div>
@@ -241,21 +259,29 @@ export default function CheckoutContent() {
                                         <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1 items-center">
                                             {cardType === "visa" && (
                                                 <div className="relative w-10 h-6">
-                                                    <Image src="/assets/images/Payment/visa.png" alt="Visa" fill className="object-contain" />
+                                                    <Image src="/assets/images/Icon/visa.svg" alt="Visa" fill className="object-contain" />
                                                 </div>
                                             )}
                                             {cardType === "mastercard" && (
                                                 <div className="relative w-10 h-6">
-                                                    <Image src="/assets/images/Payment/mastercard.png" alt="Mastercard" fill className="object-contain" />
+                                                    <Image src="/assets/images/Icon/mastercard.svg" alt="Mastercard" fill className="object-contain" />
+                                                </div>
+                                            )}
+                                            {cardType === "amex" && (
+                                                <div className="relative w-10 h-6">
+                                                    <Image src="/assets/images/Icon/american-express.svg" alt="American Express" fill className="object-contain" />
                                                 </div>
                                             )}
                                             {!cardType && (
                                                 <>
                                                     <div className="relative w-8 h-5 opacity-40 grayscale">
-                                                        <Image src="/assets/images/Payment/visa.png" alt="Visa" fill className="object-contain" />
+                                                        <Image src="/assets/images/Icon/visa.svg" alt="Visa" fill className="object-contain" />
                                                     </div>
                                                     <div className="relative w-8 h-5 opacity-40 grayscale">
-                                                        <Image src="/assets/images/Payment/mastercard.png" alt="Mastercard" fill className="object-contain" />
+                                                        <Image src="/assets/images/Icon/mastercard.svg" alt="Mastercard" fill className="object-contain" />
+                                                    </div>
+                                                    <div className="relative w-8 h-5 opacity-40 grayscale">
+                                                        <Image src="/assets/images/Icon/american-express.svg" alt="American Express" fill className="object-contain" />
                                                     </div>
                                                 </>
                                             )}
@@ -329,10 +355,56 @@ export default function CheckoutContent() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Delivery Address</label>
-                                    <input type="text" defaultValue="27 Fredrick Ave, Los Angeles, CA" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Email address</label>
+                                    <input type="email" placeholder="Enter email" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
                                 </div>
 
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">First Name</label>
+                                        <input type="text" placeholder="First name" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Last Name</label>
+                                        <input type="text" placeholder="Last name" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Country</label>
+                                    <div className="relative">
+                                        <select className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900 appearance-none">
+                                            <option>United States</option>
+                                            <option>Canada</option>
+                                            <option>United Kingdom</option>
+                                            <option>Australia</option>
+                                        </select>
+                                        <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Address</label>
+                                    <input type="text" placeholder="Street address" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">City</label>
+                                        <input type="text" placeholder="City" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Postal Code</label>
+                                        <input type="text" placeholder="Postal code" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">State / Province</label>
+                                    <input type="text" placeholder="State or Province" className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-zinc-900" />
+                                </div>
+
+                                {/* COD Action Button */}
                                 <div className="pt-4 flex justify-between items-center font-bold text-lg text-zinc-900">
                                     <span>Total to Pay</span>
                                     <span>${total.toFixed(2)}</span>

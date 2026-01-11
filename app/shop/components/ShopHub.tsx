@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import ReviewsSection from "./ReviewsSection";
+import ReviewBanner from "./ReviewBanner";
 
 const categories = [
     {
@@ -49,8 +51,36 @@ export default function ShopHub() {
 
     return (
         <main ref={containerRef} className="min-h-screen bg-white pt-32 pb-24 px-6 md:px-12">
-            <div className="max-w-7xl mx-auto">
-                <div className="mb-16 text-center max-w-2xl mx-auto">
+            <div className="max-w-7xl mx-auto space-y-16">
+
+
+                {/* Featured New Arrival: Mono One */}
+                <div className="category-card bg-[#d3dce6] rounded-[2.5rem] overflow-hidden relative">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        {/* Image Side */}
+                        <div className="relative aspect-[4/3] md:aspect-auto md:h-[300px]">
+                            <Image
+                                src="/assets/images/Shop/Mono-one-shop.png"
+                                alt="Mono One Earbuds"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
+
+                        {/* Content Side */}
+                        <div className="flex flex-col justify-center max-w-md">
+                            <span className="text-zinc-500 text-sm font-medium tracking-wide mb-2">New Arrival</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tighter mb-6">
+                                MONO ONE
+                            </h2>
+                            <p className="text-zinc-600 text-lg leading-relaxed mb-8">
+                                Experience premium sound, all-day comfort, and sleek design — the wireless earbud made for your lifestyle.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="text-center max-w-2xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-bold text-zinc-900 tracking-tight mb-4">
                         Choose your sound.
                     </h1>
@@ -59,7 +89,7 @@ export default function ShopHub() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-[600px] md:h-[500px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:h-[500px]">
                     {categories.map((cat, i) => (
                         <Link
                             key={cat.id}
@@ -71,7 +101,7 @@ export default function ShopHub() {
                                 <p className={`text-sm ${cat.id === 'earbuds' ? 'text-zinc-400' : 'text-zinc-500'}`}>{cat.description}</p>
                             </div>
 
-                            <div className="absolute inset-0 flex items-center justify-center translate-y-12 group-hover:interpret-y-4 transition-transform duration-700">
+                            <div className="absolute inset-0 flex items-center justify-center translate-y-12 group-hover:translate-y-4 transition-transform duration-700">
                                 <div className="relative w-4/5 aspect-square">
                                     <Image
                                         src={cat.image}
@@ -90,6 +120,11 @@ export default function ShopHub() {
                             </div>
                         </Link>
                     ))}
+                </div>
+
+                <div className="mt-16">
+                    <ReviewsSection />
+                    <ReviewBanner />
                 </div>
             </div>
         </main>

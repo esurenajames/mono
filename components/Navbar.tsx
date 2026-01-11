@@ -50,6 +50,9 @@ export default function Navbar() {
 
                             {/* Desktop Menu - Distributed Links */}
                             <div className="hidden md:flex items-center justify-center gap-10">
+                                <Link href="/shop" className="hover:text-white transition-colors">
+                                    Shop
+                                </Link>
                                 <Link href="/headphones" className="hover:text-white transition-colors">
                                     Headphones
                                 </Link>
