@@ -126,9 +126,13 @@ const PayNowForm = ({ onSuccess, total }: { onSuccess: () => void, total: number
     }, [setValue]);
 
     const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let val = e.target.value;
-        if (val.length > 19) val = val.slice(0, 19);
-        setValue("cardNumber", val, { shouldValidate: true });
+        let val = e.target.value.replace(/\D/g, ''); // Remove non-digits
+        if (val.length > 16) val = val.slice(0, 16);
+
+        // Add spaces for formatting
+        const formattedVal = val.match(/.{1,4}/g)?.join(' ') || val;
+
+        setValue("cardNumber", formattedVal, { shouldValidate: true });
 
         if (val.startsWith("4")) setCardType("visa");
         else if (/^5[1-5]/.test(val)) setCardType("mastercard");
@@ -156,7 +160,7 @@ const PayNowForm = ({ onSuccess, total }: { onSuccess: () => void, total: number
                     <input
                         {...register("cardNumber")}
                         type="text"
-                        placeholder="Card number"
+                        placeholder="1234 1234 1234 1234"
                         maxLength={19}
                         onChange={handleCardNumberChange}
                         className={`w-full bg-zinc-50 border rounded-xl pl-4 pr-16 py-3 outline-none transition-all font-mono text-zinc-900 ${errors.cardNumber
@@ -172,6 +176,7 @@ const PayNowForm = ({ onSuccess, total }: { onSuccess: () => void, total: number
                             <>
                                 <div className="relative w-8 h-5 opacity-40 grayscale"><Image src="/assets/images/Icon/visa.svg" alt="Visa" fill className="object-contain" /></div>
                                 <div className="relative w-8 h-5 opacity-40 grayscale"><Image src="/assets/images/Icon/mastercard.svg" alt="Mastercard" fill className="object-contain" /></div>
+                                <div className="relative w-8 h-5 opacity-40 grayscale"><Image src="/assets/images/Icon/american-express.svg" alt="Amex" fill className="object-contain" /></div>
                             </>
                         )}
                     </div>

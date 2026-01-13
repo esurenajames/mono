@@ -12,67 +12,90 @@ export interface Product {
 }
 
 export const products: Product[] = [
+    // HEADPHONES
     {
-        id: 1,
-        name: "MONO ONE",
-        description: "Premium wireless headphones with ANC",
-        price: "$560",
-        image: "/assets/images/Shop/Mono-one-shop.png",
+        id: 5,
+        name: "MONO SPACE",
+        description: "The sound of absolute silence",
+        price: "$699",
+        image: "/assets/images/Shop/Headphones/Mono Space/mono-space.png",
         images: [
-            "/assets/images/Recommendations/woman-earbuds-1.png",
-            "/assets/images/Recommendations/man-headphones.png",
-            "/assets/images/Recommendations/woman-earbuds-2.png"
+            "/assets/images/Shop/Headphones/Mono Space/mono-space.png",
+            "/assets/images/Shop/Headphones/Mono Space/mono-space-1.png",
+            "/assets/images/Shop/Headphones/Mono Space/mono-space-2.png",
+            "/assets/images/Shop/Headphones/Mono Space/mono-space-3.png"
         ],
-        releaseDate: "2025-11-15",
-        featuredDescription: "Immerse yourself in pure audio bliss with active noise cancellation that adapts to your environment.",
+        releaseDate: "2024-02-01",
+        featuredDescription: "Crafted in pristine white with our most advanced noise-canceling technology. Mono Space delivers an ethereal audio experience wrapped in minimalistic luxury.",
         category: "Headphones",
         featured: true
     },
     {
         id: 2,
-        name: "MONO PRO",
-        description: "Studio-grade audio for professionals",
-        price: "$720",
-        image: "/assets/images/Shop/Mono-one-shop.png",
+        name: "MONO GO",
+        description: "Uncompromised portable audio.",
+        price: "$499",
+        image: "/assets/images/Shop/Headphones/Mono Go/mono-go.png",
         images: [
-            "/assets/images/Recommendations/man-dark-earbuds.png",
-            "/assets/images/Recommendations/man-headphones.png",
-            "/assets/images/Recommendations/woman-earbuds-1.png"
+            "/assets/images/Shop/Headphones/Mono Go/mono-go.png",
+            "/assets/images/Shop/Headphones/Mono Go/mono-go-1.png",
+            "/assets/images/Shop/Headphones/Mono Go/mono-go-2.png",
+            "/assets/images/Shop/Headphones/Mono Go/mono-go-3.png"
         ],
-        releaseDate: "2023-09-01",
-        featuredDescription: "Designed for audio professionals, the MONO PRO delivers flat response and pristine clarity for mixing and mastering.",
+        releaseDate: "2024-01-20",
+        featuredDescription: "Designed for the sophisticated traveler. Finished in ceramic white, Mono Go combines high-fidelity sound with an ultra-portable form factor.",
         category: "Headphones",
         featured: false
+    },
+    // EARBUDS
+    {
+        id: 1,
+        name: "MONO ONE",
+        description: "Studio-grade wireless perfection.",
+        price: "$599",
+        image: "/assets/images/Shop/Earbuds/Mono One/mono-one.png",
+        images: [
+            "/assets/images/Shop/Earbuds/Mono One/mono-one.png",
+            "/assets/images/Shop/Earbuds/Mono One/mono-one-1.jpeg",
+            "/assets/images/Shop/Earbuds/Mono One/mono-one-2.jpeg",
+            "/assets/images/Shop/Earbuds/Mono One/mono-one-3.jpeg"
+        ],
+        releaseDate: "2025-11-15",
+        featuredDescription: "Encased in an alabaster finish, Mono One resets the standard for wireless audio. Immerse yourself in rich, expansive soundstages.",
+        category: "Earbuds",
+        featured: true
     },
     {
         id: 3,
         name: "MONO LITE",
-        description: "Lightweight comfort for all-day use",
-        price: "$320",
-        image: "/assets/images/Recommendations/woman-earbuds-1.png",
+        description: "Essential luxury for everyday.",
+        price: "$299",
+        image: "/assets/images/Shop/Earbuds/Mono Lite/mono-lite.png",
         images: [
-            "/assets/images/Recommendations/woman-earbuds-2.png",
-            "/assets/images/Recommendations/woman-earbuds-1.png",
-            "/assets/images/Recommendations/man-dark-earbuds.png"
+            "/assets/images/Shop/Earbuds/Mono Lite/mono-lite.png",
+            "/assets/images/Shop/Earbuds/Mono Lite/mono-lite-1.jpeg",
+            "/assets/images/Shop/Earbuds/Mono Lite/mono-llite-2.png",
+            "/assets/images/Shop/Earbuds/Mono Lite/mono-lite-3.png"
         ],
         releaseDate: "2023-06-20",
-        featuredDescription: "Feather-light construction meets all-day battery life, making the MONO LITE your perfect daily commute companion.",
+        featuredDescription: "Feather-light soft white construction meets all-day battery life. Mono Lite offers premium aesthetics and performance in our most accessible form.",
         category: "Earbuds",
         featured: false
     },
     {
         id: 4,
         name: "MONO SPORT",
-        description: "Sweat-resistant for active lifestyles",
+        description: "Elite performance, zero distractions.",
         price: "$450",
-        image: "/assets/images/Recommendations/man-dark-earbuds.png",
+        image: "/assets/images/Shop/Earbuds/Mono Sports/mono-sports.png",
         images: [
-            "/assets/images/Recommendations/man-headphones.png",
-            "/assets/images/Recommendations/man-dark-earbuds.png",
-            "/assets/images/Recommendations/woman-earbuds-2.png"
+            "/assets/images/Shop/Earbuds/Mono Sports/mono-sports.png",
+            "/assets/images/Shop/Earbuds/Mono Sports/mono-sports-1.png",
+            "/assets/images/Shop/Earbuds/Mono Sports/mono-sports-2.png",
+            "/assets/images/Shop/Earbuds/Mono Sports/mono-sports-3.png"
         ],
         releaseDate: "2024-01-10",
-        featuredDescription: "Built to withstand your toughest workouts with IPX5 sweat resistance and secure-fit ergonomics.",
+        featuredDescription: "Engineered for excellence in glacial white. IPX5 sweat resistance meets audiophile-quality sound for the discerning athlete.",
         category: "Earbuds",
         featured: false
     }

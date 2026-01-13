@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, ShoppingBag, Star, Share2 } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, ArrowLeft, ShoppingBag, Star, Share2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import gsap from "gsap";
 import { useShop } from "@/context/ShopContext";
 import { Product } from "@/data/products";
 
@@ -18,6 +19,16 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
     const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useShop();
 
     const inWishlist = product ? isInWishlist(product.id) : false;
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(".main-product-image",
+                { x: -50, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+            );
+        });
+        return () => ctx.revert();
+    }, [selectedImage]);
 
     const toggleWishlist = () => {
         if (!product) return;
@@ -76,29 +87,37 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                 src={product.images && product.images.length > 0 ? product.images[selectedImage] : product.image}
                                 alt={product.name}
                                 fill
-                                className="object-contain p-12"
+                                className="main-product-image object-contain p-12"
                                 priority
                             />
                         </div>
 
                         {/* Thumbnails */}
                         {product.images && product.images.length > 0 && (
-                            <div className="grid grid-cols-3 gap-4">
-                                {product.images.map((img, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setSelectedImage(idx)}
-                                        className={`relative aspect-square bg-zinc-50 rounded-2xl overflow-hidden border-2 transition-all ${selectedImage === idx ? "border-black" : "border-transparent hover:border-zinc-200"
-                                            }`}
-                                    >
-                                        <Image
-                                            src={img}
-                                            alt={`${product.name} view ${idx + 1}`}
-                                            fill
-                                            className="object-contain p-4"
-                                        />
-                                    </button>
-                                ))}
+                            <div className="relative">
+                                <div className="grid grid-cols-3 gap-4">
+                                    {(product.images.length <= 3
+                                        ? product.images.map((_img, _idx) => _idx) // Just returns indices 0, 1, 2...
+                                        : [0, 1, 2].map(offset => (selectedImage + offset) % product.images.length) // Returns rotated indices
+                                    ).map((actualIndex) => {
+                                        const img = product.images[actualIndex];
+                                        return (
+                                            <button
+                                                key={actualIndex} // Using index as key is fine since they are unique positions
+                                                onClick={() => setSelectedImage(actualIndex)}
+                                                className={`relative aspect-square bg-zinc-50 rounded-2xl overflow-hidden border-2 transition-all ${selectedImage === actualIndex ? "border-black" : "border-transparent hover:border-zinc-200"
+                                                    }`}
+                                            >
+                                                <Image
+                                                    src={img}
+                                                    alt={`${product.name} view ${actualIndex + 1}`}
+                                                    fill
+                                                    className="object-contain p-4"
+                                                />
+                                            </button>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -187,10 +206,22 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                 <div className="mt-24 pt-24 border-t border-zinc-100">
                     <h2 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-8">You might also like</h2>
                     <div className="flex overflow-x-auto pb-4 -mx-6 px-6 snap-x md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:mx-0 md:px-0 no-scrollbar">
-                        {allProducts
-                            .filter(p => p.id !== product.id)
-                            .slice(0, 3)
-                            .map((recProduct) => (
+                        {(() => {
+                            // Helper to shuffle array
+                            const shuffle = <T,>(array: T[]): T[] => {
+                                return [...array].sort(() => Math.random() - 0.5);
+                            };
+
+                            const otherInSameCategory = allProducts.filter(p => p.category === product.category && p.id !== product.id);
+                            const otherCategories = allProducts.filter(p => p.category !== product.category && p.id !== product.id); // Ensure we don't pick current product if category is mixed
+
+                            // Prioritize same category, then fill with others
+                            const recommendations = [
+                                ...shuffle(otherInSameCategory),
+                                ...shuffle(otherCategories)
+                            ].slice(0, 3);
+
+                            return recommendations.map((recProduct) => (
                                 <Link
                                     href={`/shop/${recProduct.id}?from=/shop/${product.id}`}
                                     key={recProduct.id}
@@ -209,7 +240,8 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                         <p className="text-zinc-500 text-sm">{recProduct.price}</p>
                                     </div>
                                 </Link>
-                            ))}
+                            ));
+                        })()}
                     </div>
                 </div>
             </div>

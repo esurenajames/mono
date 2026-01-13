@@ -21,19 +21,21 @@ The project emphasizes a "premium" feel with smooth transitions, minimalist typo
 
 ## 🛠️ Tech Stack
 
+- **Core**: [React.js 19](https://react.dev/)
 - **Framework**: [Next.js 15](https://nextjs.org/) (App Router, Turbopack)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [GSAP](https://gsap.com/) & CSS Transitions
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 - **State Management**: React Context API (`ShopContext`) + LocalStorage Persistence
 
 ## 🚀 Getting Started
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/e-commerce.git
-   cd e-commerce
+   git clone https://github.com/esurenajames/mono.git
+   cd mono
    ```
 
 2. **Install Dependencies**

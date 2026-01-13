@@ -14,7 +14,7 @@ const categories = [
         title: "Headphones",
         description: "Immersive sound. No distractions.",
         href: "/headphones",
-        image: "/assets/images/Shop/Mono-one-shop.png", // Using product image
+        image: "/assets/images/Recommendations/man-headphones.png",
         bg: "bg-zinc-50"
     },
     {
