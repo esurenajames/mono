@@ -454,6 +454,8 @@ export default function CheckoutContent() {
                             <button
                                 onClick={() => {
                                     setDiscountCode("MONO2026");
+                                    setDiscountApplied(0.10);
+                                    setDiscountError("");
                                     closePromoDialog();
                                 }}
                                 className="block w-full bg-black text-white px-6 py-4 text-xs font-bold hover:bg-zinc-800 transition-all text-center uppercase tracking-[0.2em] shadow-lg shadow-black/10"
