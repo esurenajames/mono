@@ -104,11 +104,11 @@ const PayNowForm = ({ onSuccess, total }: { onSuccess: () => void, total: number
         defaultValues: {
             email: "jenny@example.com",
             cardholderName: "Jenny Rosen",
-            billingAddress: "27 Fredrick Ave Brothers",
-            city: "Los Angeles",
-            zip: "94025",
-            state: "California",
-            country: "United States",
+            billingAddress: "123 Rizal Ave",
+            city: "Quezon City",
+            zip: "1100",
+            state: "Metro Manila",
+            country: "Philippines",
             saveAddress: true
         }
     });
@@ -259,6 +259,14 @@ const CodForm = ({ onSuccess, total }: { onSuccess: () => void, total: number })
         resolver: zodResolver(codSchema),
         mode: "onChange",
         defaultValues: {
+            firstName: "Jenny",
+            lastName: "Rosen",
+            email: "jenny@example.com",
+            address: "123 Rizal Ave",
+            city: "Quezon City",
+            postalCode: "1100",
+            state: "Metro Manila",
+            country: "Philippines",
             saveAddress: true
         }
     });
