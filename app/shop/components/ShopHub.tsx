@@ -101,7 +101,7 @@ export default function ShopHub() {
                                 <p className={`text-sm ${cat.id === 'earbuds' ? 'text-zinc-400' : 'text-zinc-500'}`}>{cat.description}</p>
                             </div>
 
-                            <div className="absolute inset-0 flex items-center justify-center translate-y-12 group-hover:translate-y-4 transition-transform duration-700">
+                            <div className="absolute inset-0 flex items-center justify-center translate-y-6">
                                 <div className="relative w-4/5 aspect-square">
                                     <Image
                                         src={cat.image}
