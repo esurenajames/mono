@@ -617,7 +617,7 @@ export default function CheckoutContent() {
                                     onClick={handleApplyDiscount}
                                     className="bg-white border border-zinc-200 text-zinc-900 font-bold px-6 md:px-8 text-sm md:text-sm rounded-xl hover:bg-zinc-50 transition-colors"
                                 >
-                                    Add
+                                    Add Code
                                 </button>
                             </div>
                             {discountError && (
