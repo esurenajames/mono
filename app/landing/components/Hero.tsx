@@ -131,12 +131,6 @@ export default function Hero() {
                 </div>
 
             </div>
-
-            {!isLoaded && (
-                <div className="absolute inset-0 z-50 bg-zinc-950 flex items-center justify-center text-zinc-500 tracking-widest animate-pulse">
-                    INITIALIZING MONO SYSTEM...
-                </div>
-            )}
         </div>
     );
 }
