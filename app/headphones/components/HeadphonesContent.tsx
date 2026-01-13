@@ -40,9 +40,13 @@ export default function HeadphonesContent({ products }: HeadphonesContentProps) 
     if (!heroProduct) return <div>Loading...</div>;
 
     return (
-        <main className="bg-white min-h-screen pt-20">
+        <main className="bg-white min-h-screen pt-28 md:pt-20 pb-12">
+            <div className="md:hidden max-w-7xl mx-auto px-6 md:px-12 mb-8">
+                <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight">Headphones</h1>
+            </div>
+
             {/* Hero Section - Highlighted Product */}
-            <section ref={heroRef} className="py-12 md:py-24 px-6 md:px-12 bg-white border-b border-zinc-100">
+            <section ref={heroRef} className="pt-4 pb-12 md:py-24 px-6 md:px-12 bg-white border-b border-zinc-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
@@ -52,7 +56,7 @@ export default function HeadphonesContent({ products }: HeadphonesContentProps) 
                                 <span className="inline-block bg-zinc-100 text-zinc-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-6">
                                     Featured Product
                                 </span>
-                                <h1 className="text-5xl md:text-7xl font-bold text-zinc-900 tracking-tight leading-[0.95]">
+                                <h1 className="text-3xl md:text-7xl font-bold text-zinc-900 tracking-tight leading-[0.95]">
                                     {heroProduct.name}
                                 </h1>
                             </div>
@@ -62,14 +66,14 @@ export default function HeadphonesContent({ products }: HeadphonesContentProps) 
                             <div className="hero-content flex flex-wrap gap-4 pt-4">
                                 <Link
                                     href={`/shop/${heroProduct.id}`}
-                                    className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full font-bold hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20"
+                                    className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 md:px-8 md:py-4 text-sm md:text-base rounded-full font-bold hover:bg-zinc-800 transition-all duration-300 shadow-lg shadow-black/20"
                                 >
                                     View Product
                                     <Eye size={18} />
                                 </Link>
                                 <button
                                     onClick={() => addToCart(heroProduct)}
-                                    className="inline-flex items-center gap-2 bg-white text-black border border-zinc-200 px-8 py-4 rounded-full font-bold hover:bg-zinc-50 transition-all duration-300 cursor-pointer"
+                                    className="inline-flex items-center gap-2 bg-white text-black border border-zinc-200 px-6 py-3 md:px-8 md:py-4 text-sm md:text-base rounded-full font-bold hover:bg-zinc-50 transition-all duration-300 cursor-pointer"
                                 >
                                     Add to Cart - {heroProduct.price}
                                     <ShoppingBag size={18} />

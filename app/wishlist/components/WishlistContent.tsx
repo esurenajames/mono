@@ -26,7 +26,7 @@ export default function WishlistContent() {
                         />
                     </svg>
                 </div>
-                <h1 className="text-3xl font-bold text-zinc-900 mb-4">Your wishlist is empty</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4">Your wishlist is empty</h1>
                 <p className="text-zinc-500 mb-8 max-w-md">
                     Start exploring our collection and save your favorite items for later.
                 </p>
@@ -45,12 +45,12 @@ export default function WishlistContent() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-16">
                     <div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-2">
+                        <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-2">
                             Wishlist
                         </h1>
                         <p className="text-zinc-500">{wishlist.length} {wishlist.length === 1 ? 'item' : 'items'} saved</p>
                     </div>
-                    <Link href="/headphones" className="text-zinc-500 hover:text-black flex items-center gap-2 transition-colors">
+                    <Link href="/headphones" className="inline-flex items-center text-sm font-medium text-zinc-500 hover:text-black transition-colors">
                         <ArrowLeft size={18} />
                         Continue Shopping
                     </Link>
@@ -81,7 +81,7 @@ export default function WishlistContent() {
                             <div className="flex-1 space-y-4">
                                 <div>
                                     <Link href={`/shop/${product.id}`}>
-                                        <h2 className="text-2xl font-bold text-zinc-900 leading-tight group-hover:text-zinc-600 transition-colors">
+                                        <h2 className="text-xl md:text-2xl font-bold text-zinc-900 leading-tight group-hover:text-zinc-600 transition-colors">
                                             {product.name}
                                         </h2>
                                     </Link>
@@ -89,10 +89,10 @@ export default function WishlistContent() {
                                 </div>
 
                                 <div className="flex items-center justify-between pt-2">
-                                    <span className="text-xl font-bold text-zinc-900">{product.price}</span>
+                                    <span className="text-lg md:text-xl font-bold text-zinc-900">{product.price}</span>
                                     <button
                                         onClick={() => addToCart(product)}
-                                        className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-zinc-800 transition-all shadow-md active:scale-[0.98]"
+                                        className="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold hover:bg-zinc-800 transition-all shadow-md active:scale-[0.98]"
                                     >
                                         <ShoppingBag size={18} />
                                         Add to Cart

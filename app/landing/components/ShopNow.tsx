@@ -17,7 +17,7 @@ export default function ShopNow() {
     return (
         <section ref={sectionRef} className="py-16 pb-24 px-6 md:px-12 bg-white">
             <div className="max-w-7xl mx-auto bg-zinc-200 rounded-[3rem] overflow-hidden relative">
-                <div className="flex flex-col md:flex-row items-center justify-between p-12 md:p-20 gap-12 relative min-h-[500px]">
+                <div className="flex flex-col md:flex-row items-center justify-between p-12 md:p-20 gap-0 md:gap-12 relative min-h-[440px] md:min-h-[500px]">
                     <div ref={contentRef} className="flex-1 space-y-8 z-20 relative max-w-xl">
                         <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.9] tracking-tighter text-zinc-900">
                             Ready for <br />
@@ -35,13 +35,13 @@ export default function ShopNow() {
                         </div>
                     </div>
 
-                    <div ref={imageRef} className="absolute right-0 bottom-0 w-[60%] h-[100%] z-10 translate-y-10 md:translate-x-10 pointer-events-none">
+                    <div ref={imageRef} className="absolute right-0 bottom-3 w-full md:w-[60%] h-[50%] md:h-[100%] z-10 translate-y-0 md:translate-y-10 md:translate-x-10 pointer-events-none">
                         <div className="relative w-full h-full">
                             <Image
                                 src="/assets/images/Shop/Show.png"
                                 alt="NIYO Buds"
                                 fill
-                                className="object-contain object-bottom-right scale-125"
+                                className="object-contain object-bottom md:object-right-bottom scale-125 md:scale-125"
                             />
                         </div>
                     </div>

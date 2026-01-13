@@ -16,6 +16,7 @@ interface ShopContextType {
     closeCart: () => void;
     addToCart: (product: Product, quantity?: number, color?: string, silent?: boolean) => void;
     removeFromCart: (productId: number) => void;
+    clearCart: () => void;
     updateQuantity: (productId: number, delta: number) => void;
     addToWishlist: (product: Product) => void;
     removeFromWishlist: (productId: number) => void;
@@ -75,6 +76,10 @@ export function ShopProvider({ children }: { children: ReactNode }) {
         setCart((prev) => prev.filter((item) => item.id !== productId));
     };
 
+    const clearCart = () => {
+        setCart([]);
+    };
+
     const updateQuantity = (productId: number, delta: number) => {
         setCart((prev) =>
             prev.map((item) => {
@@ -112,6 +117,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
                 closeCart,
                 addToCart,
                 removeFromCart,
+                clearCart,
                 updateQuantity,
                 addToWishlist,
                 removeFromWishlist,

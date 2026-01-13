@@ -107,7 +107,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                     <div className="flex flex-col justify-center space-y-8">
                         <div>
                             <div className="flex items-center justify-between">
-                                <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight mb-4">
+                                <h1 className="text-2xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight mb-4">
                                     {product.name}
                                 </h1>
                                 <button className="p-2 rounded-full hover:bg-zinc-100 transition-colors text-zinc-500">
@@ -117,7 +117,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
 
 
                             <div className="flex items-center gap-2 mb-6">
-                                <span className="text-2xl font-bold text-zinc-900">{product.price}</span>
+                                <span className="text-xl md:text-2xl font-bold text-zinc-900">{product.price}</span>
                                 <div className="flex items-center gap-1 ml-4 border-l border-zinc-200 pl-4">
                                     <Star size={16} className="fill-black text-black" />
                                     <span className="font-bold text-sm">4.9</span>
@@ -125,7 +125,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                 </div>
                             </div>
 
-                            <p className="text-zinc-600 text-lg leading-relaxed">
+                            <p className="text-zinc-600 text-base  md:text-lg leading-relaxed">
                                 {product.featuredDescription || product.description}
                             </p>
                         </div>
@@ -186,7 +186,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                 {/* Recommendations Section */}
                 <div className="mt-24 pt-24 border-t border-zinc-100">
                     <h2 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-8">You might also like</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="flex overflow-x-auto pb-4 -mx-6 px-6 snap-x md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:mx-0 md:px-0 no-scrollbar">
                         {allProducts
                             .filter(p => p.id !== product.id)
                             .slice(0, 3)
@@ -194,7 +194,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                 <Link
                                     href={`/shop/${recProduct.id}?from=/shop/${product.id}`}
                                     key={recProduct.id}
-                                    className="group block bg-zinc-50 rounded-[2rem] p-6 hover:bg-zinc-100 transition-colors"
+                                    className="group block bg-zinc-50 rounded-[2rem] p-6 hover:bg-zinc-100 transition-colors min-w-[90vw] w-[90vw] md:min-w-0 md:w-auto snap-center flex-shrink-0 mr-4 md:mr-0 border border-transparent hover:border-zinc-200"
                                 >
                                     <div className="relative aspect-square mb-6">
                                         <Image

@@ -49,11 +49,11 @@ export default function ReviewsSection() {
     };
 
     return (
-        <section className="py-16 bg-zinc-50/50">
+        <section className="py-12 md:py-16 bg-zinc-50/50">
             <div className="max-w-7xl mx-auto px-6 md:px-12">
                 {/* Header */}
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-4">
+                    <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-4">
                         Reviews from real people
                     </h2>
                     <div className="inline-flex items-center gap-2 text-zinc-600 font-medium">
@@ -93,13 +93,13 @@ export default function ReviewsSection() {
                     <div className="lg:col-span-8">
                         <div
                             ref={scrollRef}
-                            className="flex gap-6 overflow-x-auto pb-8 snap-x scrollbar-hide"
+                            className="flex gap-4 overflow-x-auto pb-8 snap-x scrollbar-hide"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
                             {reviews.map((review) => (
                                 <div
                                     key={review.id}
-                                    className="min-w-[350px] md:min-w-[400px] bg-white p-8 rounded-[2rem] shadow-sm border border-zinc-100 snap-start flex flex-col justify-between"
+                                    className="min-w-[85vw] md:min-w-[400px] bg-white p-8 rounded-[2rem] shadow-sm border border-zinc-100 snap-start flex flex-col justify-between"
                                 >
                                     <div className="space-y-6">
                                         <p className="text-zinc-600 leading-relaxed text-lg">

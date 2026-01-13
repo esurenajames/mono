@@ -50,12 +50,12 @@ export default function ShopHub() {
     }, []);
 
     return (
-        <main ref={containerRef} className="min-h-screen bg-white pt-32 pb-24 px-6 md:px-12">
+        <main ref={containerRef} className="min-h-screen bg-white pt-24 md:pt-32 pb-24 px-6 md:px-12">
             <div className="max-w-7xl mx-auto space-y-16">
 
 
                 {/* Featured New Arrival: Mono One */}
-                <div className="category-card bg-[#d3dce6] rounded-[2.5rem] overflow-hidden relative">
+                <div className="category-card bg-[#d3dce6] rounded-[2.5rem] overflow-hidden relative p-8 md:p-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                         {/* Image Side */}
                         <div className="relative aspect-[4/3] md:aspect-auto md:h-[300px]">
@@ -71,7 +71,7 @@ export default function ShopHub() {
                         {/* Content Side */}
                         <div className="flex flex-col justify-center max-w-md">
                             <span className="text-zinc-500 text-sm font-medium tracking-wide mb-2">New Arrival</span>
-                            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tighter mb-6">
+                            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tighter mb-6">
                                 MONO ONE
                             </h2>
                             <p className="text-zinc-600 text-lg leading-relaxed mb-8">
@@ -81,7 +81,7 @@ export default function ShopHub() {
                     </div>
                 </div>
                 <div className="text-center max-w-2xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-bold text-zinc-900 tracking-tight mb-4">
+                    <h1 className="text-3xl md:text-6xl font-bold text-zinc-900 tracking-tight mb-4">
                         Choose your sound.
                     </h1>
                     <p className="text-zinc-500 text-lg md:text-xl">
@@ -94,7 +94,7 @@ export default function ShopHub() {
                         <Link
                             key={cat.id}
                             href={cat.href}
-                            className={`category-card group relative rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 hover:scale-[1.02] transition-transform duration-500 ${cat.bg}`}
+                            className={`category-card group relative rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 hover:scale-[1.02] transition-transform duration-500 min-h-[400px] md:min-h-0 ${cat.bg}`}
                         >
                             <div className="relative z-10">
                                 <h2 className={`text-2xl font-bold mb-2 ${cat.id === 'earbuds' ? 'text-white' : 'text-zinc-900'}`}>{cat.title}</h2>

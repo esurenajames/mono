@@ -101,7 +101,7 @@ export default function ActiveLifestyle() {
 
     return (
         <section ref={sectionRef} className="bg-white py-32 pb-0 px-6 md:px-12 text-zinc-900 overflow-hidden relative">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-32 w-full">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-0 md:gap-32 w-full">
 
                 <div className="md:w-1/2 relative space-y-8">
                     <div className="relative z-10">
@@ -141,12 +141,12 @@ export default function ActiveLifestyle() {
 
                 </div>
 
-                <div className="md:w-1/2 relative flex justify-center h-[600px] items-end pb-12">
+                <div className="w-full md:w-1/2 relative flex justify-center h-[600px] items-end pb-12">
                     <div
                         ref={imageContainerRef}
-                        className="relative w-full max-w-lg h-[450px] bg-zinc-100 rounded-[3rem] p-8 shadow-inner"
+                        className="relative w-full max-w-lg h-[32rem] md:h-[450px] bg-zinc-100 rounded-[3rem] p-8 shadow-inner"
                     >
-                        <div ref={manImageRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[115%] h-[140%] z-10 filter drop-shadow-2xl">
+                        <div ref={manImageRef} className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[35rem] md:w-[115%] h-[450px] md:h-[140%] z-10 filter drop-shadow-2xl">
                             <Image
                                 src="/assets/images/Advertisement/man1.png"
                                 alt="Man wearing MONO ONE headphones"

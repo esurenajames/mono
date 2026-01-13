@@ -99,12 +99,29 @@ export default function About() {
             className="bg-zinc-950 relative"
         >
             <div className="max-w-6xl mx-auto px-8">
-                <div className="flex flex-col md:flex-row items-start gap-16 md:gap-24">
+                <div className="flex flex-col md:flex-row items-start gap-0 md:gap-24">
 
-                    {/* Left Side - Sticky */}
-                    <div
-                        className="md:w-1/2 h-screen sticky top-0 flex flex-col justify-center"
-                    >
+                    {/* Mobile Header (Scrolls away) */}
+                    <div className="w-full md:hidden flex flex-col justify-center pt-24 pb-12">
+                        <p className="text-zinc-500 text-xs uppercase tracking-[0.3em] font-semibold mb-4">
+                            MONO ONE
+                        </p>
+                        <h2 className="text-4xl font-bold text-zinc-50 leading-tight tracking-tight mb-8">
+                            Experience<br />
+                            <span className="text-zinc-600">pure audio.</span>
+                        </h2>
+                        <div className="relative w-full aspect-video overflow-hidden rounded-xl shadow-2xl shadow-black/50">
+                            <Image
+                                src="/assets/images/Advertisement/science.png"
+                                alt="Acoustic engineering visualization"
+                                fill
+                                className="object-cover opacity-80 mix-blend-screen"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Desktop Sidebar (Sticky Left Side) */}
+                    <div className="hidden md:flex md:w-1/2 h-screen sticky top-0 flex-col justify-center">
                         <p className="text-zinc-400 text-sm uppercase tracking-[0.3em] font-semibold mb-4">
                             MONO ONE
                         </p>
@@ -113,7 +130,6 @@ export default function About() {
                             <span className="text-zinc-500">pure audio.</span>
                         </h2>
 
-                        {/* Science Image */}
                         <div className="relative w-full max-w-sm h-64 md:h-80 overflow-hidden rounded-2xl shadow-2xl shadow-black/50">
                             <Image
                                 src="/assets/images/Advertisement/science.png"
@@ -125,12 +141,16 @@ export default function About() {
                     </div>
 
                     {/* Right Side - Scrolling Content */}
-                    <div className="md:w-1/2 py-32">
+                    <div className="w-full md:w-1/2 pb-24 md:py-32">
                         {features.map((feature, index) => (
                             <div
                                 key={index}
                                 ref={(el) => { featureRefs.current[index] = el; }}
-                                className="min-h-screen flex flex-col justify-center"
+                                className="sticky md:relative md:top-auto flex flex-col justify-center bg-zinc-950 border-t border-white/10 md:border-none py-12 md:py-0"
+                                style={{
+                                    top: `${60 + index * 60}px`,
+                                    minHeight: '80vh'
+                                }}
                             >
                                 <p className="feature-label text-zinc-500 text-sm uppercase tracking-[0.3em] font-medium mb-4">
                                     {feature.label}
