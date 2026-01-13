@@ -92,7 +92,7 @@ export default function Recommendations() {
                         <Link href={`/shop/${product.id}?from=landing`} key={product.id} className="product-card group cursor-pointer block">
                             <div className="relative aspect-[4/5] bg-zinc-100 rounded-[2rem] overflow-hidden mb-6">
                                 <Image
-                                    src={product.images[0] || product.image}
+                                    src={product.images[1]}
                                     alt={product.name}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
