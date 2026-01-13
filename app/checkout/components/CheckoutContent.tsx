@@ -533,7 +533,7 @@ export default function CheckoutContent() {
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                 {/* LEFT COLUMN: Order Summary */}
-                <div className="order-2 lg:order-1 space-y-8">
+                <div className="space-y-8">
 
                     {/* Header */}
                     <div className="flex items-center gap-2 text-sm text-zinc-500 mb-4">
@@ -669,7 +669,7 @@ export default function CheckoutContent() {
 
 
                 {/* RIGHT COLUMN: Payment Details */}
-                <div className="order-1 lg:order-2">
+                <div className="">
                     <div className="bg-white rounded-[2rem] p-6 md:p-10 shadow-xl shadow-zinc-200/50 border border-zinc-100">
                         {/* Payment Method Tabs */}
                         <div className="bg-white p-1.5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-zinc-100 flex mb-8">
