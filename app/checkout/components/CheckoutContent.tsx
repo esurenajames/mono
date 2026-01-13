@@ -375,13 +375,19 @@ export default function CheckoutContent() {
     const recommendedProduct = products.find(p => !cartIds.includes(p.id)) || products[0];
 
     // Mock calculations
+    const [discountCode, setDiscountCode] = useState("");
+    const [discountApplied, setDiscountApplied] = useState(0); // 0.10 for 10%
+    const [discountError, setDiscountError] = useState("");
+    const [showPromoDialog, setShowPromoDialog] = useState(false);
+
     const subtotal = cart.reduce((acc, item) => {
         const price = parseFloat(item.price.replace("$", "").replace(",", ""));
         return acc + price * item.quantity;
     }, 0);
     const shipping: number = 0; // Free
-    const tax = subtotal * 0.08;
-    const total = subtotal + shipping + tax;
+    const discountAmount = subtotal * discountApplied;
+    const tax = (subtotal - discountAmount) * 0.08;
+    const total = subtotal - discountAmount + shipping + tax;
 
     // Form state (visual mostly)
     const [paymentTab, setPaymentTab] = useState<"pay_now" | "cod">("pay_now");
@@ -395,8 +401,70 @@ export default function CheckoutContent() {
         setIsSuccess(true);
     };
 
+    const handleApplyDiscount = () => {
+        if (discountCode.toUpperCase() === "MONO2026") {
+            setDiscountApplied(0.10);
+            setDiscountError("");
+            setShowPromoDialog(false);
+        } else {
+            setDiscountApplied(0);
+            setDiscountError("Invalid code");
+            setShowPromoDialog(true);
+        }
+    };
+
+    const closePromoDialog = () => {
+        setShowPromoDialog(false);
+    };
+
     return (
         <main className="min-h-screen bg-zinc-50 pt-20 md:pt-24 pb-8 md:pb-12 px-4 md:px-8 relative">
+            {showPromoDialog && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-md">
+                    <div className="bg-white shadow-2xl max-w-sm w-full animate-in fade-in zoom-in-95 duration-300 relative">
+                        <button onClick={closePromoDialog} className="absolute right-4 top-4 text-zinc-400 hover:text-black transition-colors z-10">
+                            <X size={20} />
+                        </button>
+
+                        {/* Receipt Header */}
+                        <div className="p-8 text-center pb-6 border-b border-dashed border-zinc-200">
+                            <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                                <Smartphone size={32} strokeWidth={2} />
+                            </div>
+                            <h2 className="text-xl font-bold text-black uppercase tracking-widest">Just for you</h2>
+                            <p className="text-zinc-400 text-xs mt-2 uppercase tracking-wide">Exclusive Offer</p>
+                        </div>
+
+                        {/* Receipt Body */}
+                        <div className="px-8 py-8 bg-white text-center">
+                            <p className="text-zinc-500 text-sm leading-relaxed mb-6">
+                                That code didn't work, but we have something better. Use <span className="font-bold text-black">MONO2026</span> for a <span className="font-bold text-black">10% discount</span>.
+                            </p>
+
+                            <div className="p-4 bg-zinc-50 border border-dashed border-zinc-200 rounded-lg mb-6">
+                                <p className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Your Code</p>
+                                <p className="text-xl font-mono font-bold text-black tracking-widest">MONO2026</p>
+                            </div>
+
+                            <p className="text-[10px] text-zinc-400 uppercase tracking-wide">Valid only for today</p>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="p-6 bg-zinc-50 border-t border-zinc-100">
+                            <button
+                                onClick={() => {
+                                    setDiscountCode("MONO2026");
+                                    closePromoDialog();
+                                }}
+                                className="block w-full bg-black text-white px-6 py-4 text-xs font-bold hover:bg-zinc-800 transition-all text-center uppercase tracking-[0.2em] shadow-lg shadow-black/10"
+                            >
+                                Apply Discount
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {isSuccess && lastOrder && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-md">
                     <div className="bg-white shadow-2xl max-w-sm w-full animate-in fade-in zoom-in-95 duration-300 relative">
@@ -530,26 +598,52 @@ export default function CheckoutContent() {
                         </div>
 
                         {/* Discount Code */}
-                        <div className="flex gap-3 mb-8">
-                            <div className="flex-1 bg-zinc-50 rounded-xl px-4 py-3 flex items-center border border-zinc-200">
-                                <Smartphone size={18} className="text-zinc-400 mr-3" />
-                                <input
-                                    type="text"
-                                    placeholder="Discount code"
-                                    className="bg-transparent w-full outline-none text-sm placeholder:text-zinc-400 text-zinc-900"
-                                />
+                        <div>
+                            <div className="flex gap-1">
+                                <div className={`flex-1 bg-zinc-50 rounded-xl px-4 py-3 flex items-center border transition-all ${discountError ? "border-red-500 bg-red-50" : "border-zinc-200"}`}>
+                                    <Smartphone size={18} className={`mr-3 ${discountError ? "text-red-500" : "text-zinc-400"}`} />
+                                    <input
+                                        type="text"
+                                        value={discountCode}
+                                        onChange={(e) => {
+                                            setDiscountCode(e.target.value);
+                                            if (discountError) setDiscountError("");
+                                        }}
+                                        placeholder="Discount code"
+                                        className={`bg-transparent w-full outline-none text-sm placeholder:text-zinc-400 text-zinc-900 ${discountError ? "placeholder:text-red-400 text-red-900" : ""}`}
+                                    />
+                                </div>
+                                <button
+                                    onClick={handleApplyDiscount}
+                                    className="bg-white border border-zinc-200 text-zinc-900 font-bold px-6 md:px-8 text-sm md:text-sm rounded-xl hover:bg-zinc-50 transition-colors"
+                                >
+                                    Add
+                                </button>
                             </div>
-                            <button className="bg-white border border-zinc-200 text-zinc-900 font-bold px-6 md:px-8 text-base md:text-lg rounded-xl hover:bg-zinc-50 transition-colors">
-                                Add code
-                            </button>
+                            {discountError && (
+                                <p className="text-xs text-red-500 font-medium mt-2 ml-1 animate-in slide-in-from-top-1 fade-in duration-200">
+                                    {discountError}
+                                </p>
+                            )}
+                            {discountApplied > 0 && (
+                                <p className="text-xs text-green-600 font-medium mt-2 ml-1 animate-in slide-in-from-top-1 fade-in duration-200">
+                                    Code MONO2026 applied! (10% off)
+                                </p>
+                            )}
                         </div>
 
                         {/* Totals */}
-                        <div className="space-y-3 pt-6 border-t border-zinc-100 text-sm">
+                        <div className="space-y-3 pt-6 border-t border-zinc-100 text-sm mt-8">
                             <div className="flex justify-between text-zinc-600">
                                 <span>Subtotal</span>
                                 <span className="text-zinc-900">${subtotal.toFixed(2)}</span>
                             </div>
+                            {discountApplied > 0 && (
+                                <div className="flex justify-between text-green-600">
+                                    <span>Discount (10%)</span>
+                                    <span className="font-mono">-${discountAmount.toFixed(2)}</span>
+                                </div>
+                            )}
                             <div className="flex justify-between text-zinc-600">
                                 <span>Shipping</span>
                                 <span className="text-zinc-900">{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>

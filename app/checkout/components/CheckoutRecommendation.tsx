@@ -20,7 +20,7 @@ export default function CheckoutRecommendation({ product }: CheckoutRecommendati
                 <Link href={`/shop/${product.id}`} className="flex items-center gap-4 group">
                     <div className="w-16 h-16 bg-zinc-50 rounded-xl relative overflow-hidden flex-shrink-0">
                         <Image
-                            src={product.images[0] || product.image}
+                            src={product.images[1] || product.images[0] || product.image}
                             alt={product.name}
                             fill
                             className="object-contain p-2 group-hover:scale-110 transition-transform"
@@ -34,7 +34,7 @@ export default function CheckoutRecommendation({ product }: CheckoutRecommendati
                 <div className="flex flex-col items-end gap-2">
                     <span className="text-sm font-bold text-zinc-900">{product.price}</span>
                     <button
-                        onClick={() => addToCart({ ...product, image: product.images[0] || product.image }, 1, "Standard", true)} // silent = true
+                        onClick={() => addToCart({ ...product, image: product.images[1] || product.images[0] || product.image }, 1, "Standard", true)} // silent = true
                         className="text-xs font-bold bg-zinc-100 hover:bg-zinc-200 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors text-zinc-900 cursor-pointer"
                     >
                         <Plus size={12} /> Add
