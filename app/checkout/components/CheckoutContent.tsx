@@ -530,17 +530,17 @@ export default function CheckoutContent() {
                 </div>
             )}
 
+            {/* Header / Breadcrumbs */}
+            <div className="max-w-7xl mx-auto mb-6 flex items-center gap-2 text-sm text-zinc-500">
+                <Link href="/shop" className="hover:text-black">Shop</Link>
+                <span>/</span>
+                <span className="text-zinc-900 font-medium">Checkout</span>
+            </div>
+
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
                 {/* LEFT COLUMN: Order Summary */}
                 <div className="space-y-8">
-
-                    {/* Header */}
-                    <div className="flex items-center gap-2 text-sm text-zinc-500 mb-4">
-                        <Link href="/shop" className="hover:text-black">Shop</Link>
-                        <span>/</span>
-                        <span className="text-zinc-900 font-medium">Checkout</span>
-                    </div>
 
                     <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-zinc-100">
                         <h2 className="text-lg md:text-2xl font-bold mb-6 flex items-baseline gap-2 text-zinc-900">
