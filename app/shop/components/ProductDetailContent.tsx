@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowRight, ArrowLeft, ShoppingBag, Star, Share2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ShoppingBag, Star, Share2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import gsap from "gsap";
 import { useShop } from "@/context/ShopContext";
@@ -16,6 +16,7 @@ interface ProductDetailContentProps {
 
 export default function ProductDetailContent({ product, allProducts }: ProductDetailContentProps) {
     const [selectedImage, setSelectedImage] = useState(0);
+    const [slideDirection, setSlideDirection] = useState("right");
     const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useShop();
 
     const inWishlist = product ? isInWishlist(product.id) : false;
@@ -23,12 +24,12 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo(".main-product-image",
-                { x: -50, opacity: 0 },
+                { x: slideDirection === "right" ? 50 : -50, opacity: 0 },
                 { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
             );
         });
         return () => ctx.revert();
-    }, [selectedImage]);
+    }, [selectedImage, slideDirection]);
 
     const toggleWishlist = () => {
         if (!product) return;
@@ -82,7 +83,7 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                     {/* Left: Gallery */}
                     <div className="space-y-6">
                         {/* Main Image */}
-                        <div className="relative aspect-square bg-zinc-50 rounded-[2.5rem] overflow-hidden">
+                        <div className="relative aspect-square bg-zinc-50 rounded-[2.5rem] overflow-hidden group">
                             <Image
                                 src={product.images && product.images.length > 0 ? product.images[selectedImage] : product.image}
                                 alt={product.name}
@@ -90,6 +91,30 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                 className="main-product-image object-contain p-12"
                                 priority
                             />
+
+                            {/* Navigation Arrows */}
+                            {product.images && product.images.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={() => {
+                                            setSlideDirection("left");
+                                            setSelectedImage((prev) => (prev - 1 + product.images.length) % product.images.length);
+                                        }}
+                                        className="absolute left-4 text-black top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm p-3 rounded-full hover:bg-white hover:scale-110 transition-all opacity-0 group-hover:opacity-100 shadow-sm z-10"
+                                    >
+                                        <ChevronLeft size={24} />
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setSlideDirection("right");
+                                            setSelectedImage((prev) => (prev + 1) % product.images.length);
+                                        }}
+                                        className="absolute text-black right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm p-3 rounded-full hover:bg-white hover:scale-110 transition-all opacity-0 group-hover:opacity-100 shadow-sm z-10"
+                                    >
+                                        <ChevronRight size={24} />
+                                    </button>
+                                </>
+                            )}
                         </div>
 
                         {/* Thumbnails */}
@@ -104,7 +129,17 @@ export default function ProductDetailContent({ product, allProducts }: ProductDe
                                         return (
                                             <button
                                                 key={actualIndex} // Using index as key is fine since they are unique positions
-                                                onClick={() => setSelectedImage(actualIndex)}
+                                                onClick={() => {
+                                                    // Determine direction based on click
+                                                    // If clicking a future index (or wrapping), go right. Else left.
+                                                    // Simple heuristic: if actualIndex > selectedImage, go right
+                                                    // But wrapping makes it complex. Let's just default to "right" or "fade" for thumbnail clicks?
+                                                    // Or just use 'right' for visual consistency as "new image". 
+                                                    // Actually, let's try to be smart.
+                                                    // If actually clicking, let's just slide from right for now as it's a "selection".
+                                                    setSlideDirection("right");
+                                                    setSelectedImage(actualIndex);
+                                                }}
                                                 className={`relative aspect-square bg-zinc-50 rounded-2xl overflow-hidden border-2 transition-all ${selectedImage === actualIndex ? "border-black" : "border-transparent hover:border-zinc-200"
                                                     }`}
                                             >
